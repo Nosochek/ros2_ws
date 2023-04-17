@@ -39,7 +39,7 @@ class MotorDriver(Node):
 
     def _stop_callback(self):
         if (self._msg.direction == 'no') and (not self.semaphore):
-            self.get_logger().info("Direction: " + self._msg.direction + "Semaphore: " + self.semaphore)
+            self.get_logger().info("Direction: " + self._msg.direction + "Semaphore: " + str(self.semaphore))
             self.motorStop()
 
     def setup(self):  # Motor initialization
