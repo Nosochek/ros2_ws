@@ -27,7 +27,7 @@ class MotorDriver(Node):
         self.setup()
         self.subscription = self.create_subscription(
             MotorCommand, 'motor_cmd', self.motor_command_callback, 10)
-        self.create_timer(1.0, self._stop_callback)
+        self.create_timer(0.1, self._stop_callback)
     def motor_command_callback(self, msg: MotorCommand):
         self._msg = msg
         self.get_logger().info("(" + str(msg.direction) + ", " + str(msg.turn) + ")")
