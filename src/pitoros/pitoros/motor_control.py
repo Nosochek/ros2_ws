@@ -20,6 +20,7 @@ class MotorDriver(Node):
     right_backward = 1
     pwn_A = 0
     pwm_B = 0
+    semaphor = False
 
     def __init__(self):
         super().__init__('motor_driver')
@@ -28,16 +29,17 @@ class MotorDriver(Node):
         self.subscription = self.create_subscription(
             MotorCommand, 'motor_cmd', self.motor_command_callback, 10)
         self.create_timer(0.1, self._stop_callback)
+
     def motor_command_callback(self, msg: MotorCommand):
+        self.semaphor = True
         self._msg = msg
         self.get_logger().info("(" + str(msg.direction) + ", " + str(msg.turn) + ")")
         self.move(100, self._msg.direction, self._msg.turn)
-
+        self.semaphor = False
 
     def _stop_callback(self):
-        if self._msg.direction == 'no':
+        if (self._msg.direction == 'no') and (self.semaphor == False):
             self.motorStop()
-
 
     def setup(self):  # Motor initialization
         GPIO.setwarnings(False)
@@ -141,11 +143,9 @@ class MotorDriver(Node):
         self._msg.direction = 'no'
         self.get_logger().info("Direction: " + self._msg.direction)
 
-
     def destroy(self):
         self.motorStop()
         GPIO.cleanup()
-
 
 
 def main(args=None):
