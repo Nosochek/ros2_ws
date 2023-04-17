@@ -27,6 +27,7 @@ class MotorDriver(Node):
         self.setup()
         self.subscription = self.create_subscription(
             MotorCommand, 'motor_cmd', self.motor_command_callback, 10)
+        self.create_timer(1.0, self.motor_command_callback)
     def motor_command_callback(self, msg: MotorCommand):
         self._msg = msg
         self.get_logger().info("(" + str(msg.direction) + ", " + str(msg.turn) + ")")
@@ -131,10 +132,10 @@ class MotorDriver(Node):
             else:
                 self.get_logger().info("attempt to stop")
                 self.motorStop()
-        else:
-            pass
-        
+
         self._msg.direction = 'no'
+        self.get_logger().info("Direction: " + self._msg.direction)
+
 
     def destroy(self):
         self.motorStop()
