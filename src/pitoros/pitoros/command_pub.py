@@ -44,6 +44,7 @@ class CommandPubNode(Node):
     def on_press(self, key):
         self.get_logger().info("Debug")
         msg = MotorCommand()
+        msg.direction = 'no'
         if key == "w":
             msg.direction = 'forward'
         elif key == "s":

@@ -92,24 +92,32 @@ class MotorDriver(Node):
 
     def move(self, speed, direction, turn, radius=0.6):  # 0 < radius <= 1
         # speed = 100
+        self.get_logger().info("Move")
         if direction == 'forward':
+
             if turn == 'right':
+                self.get_logger().info("forward right")
                 self.motor_left(0, self.left_backward, int(speed * radius))
                 self.motor_right(1, self.right_forward, speed)
             elif turn == 'left':
+                self.get_logger().info("forward left")
                 self.motor_left(1, self.left_forward, speed)
                 self.motor_right(0, self.right_backward, int(speed * radius))
             else:
+                self.get_logger().info("forward straight")
                 self.motor_left(1, self.left_forward, speed)
                 self.motor_right(1, self.right_forward, speed)
         elif direction == 'backward':
             if turn == 'right':
+                self.get_logger().info("backward right")
                 self.motor_left(0, self.left_forward, int(speed * radius))
                 self.motor_right(1, self.right_backward, speed)
             elif turn == 'left':
+                self.get_logger().info("backward left")
                 self.motor_left(1, self.left_backward, speed)
                 self.motor_right(0, self.right_forward, int(speed * radius))
             else:
+                self.get_logger().info("backward straight")
                 self.motor_left(1, self.left_backward, speed)
                 self.motor_right(1, self.right_backward, speed)
         elif direction == 'no':
