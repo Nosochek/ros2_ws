@@ -36,7 +36,7 @@ class MotorDriver(Node):
 
     def _stop_callback(self):
         if self._msg.direction == 'no':
-            self.motorStop()  #
+            self.motorStop()
 
 
     def setup(self):  # Motor initialization
