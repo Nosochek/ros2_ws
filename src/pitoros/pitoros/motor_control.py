@@ -28,7 +28,7 @@ class MotorDriver(Node):
         self.setup()
         self.subscription = self.create_subscription(
             MotorCommand, 'motor_cmd', self.motor_command_callback, 10)
-        self.create_timer(0.1, self._stop_callback)
+        self.create_timer(0.5, self._stop_callback)
 
     def motor_command_callback(self, msg: MotorCommand):
         self.semaphore = True
@@ -38,7 +38,8 @@ class MotorDriver(Node):
         self.semaphore = False
 
     def _stop_callback(self):
-        if (self._msg.direction == 'no') and (self.semaphore == False):
+        if (self._msg.direction == 'no') and (not self.semaphore):
+            self.get_logger().info("Direction: " + self._msg.direction + "Semaphore: " + self.semaphore)
             self.motorStop()
 
     def setup(self):  # Motor initialization
