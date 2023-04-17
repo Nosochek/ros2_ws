@@ -129,6 +129,7 @@ class MotorDriver(Node):
                 self.motor_left(1, self.left_forward, speed)
                 self.motor_right(1, self.right_backward, speed)
             else:
+                self.get_logger().info("attempt to stop")
                 self.motorStop()
         else:
             pass
