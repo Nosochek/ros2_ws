@@ -20,7 +20,7 @@ class MotorDriver(Node):
     right_backward = 1
     pwn_A = 0
     pwm_B = 0
-    semaphor = False
+    semaphore = False
 
     def __init__(self):
         super().__init__('motor_driver')
@@ -31,14 +31,14 @@ class MotorDriver(Node):
         self.create_timer(0.1, self._stop_callback)
 
     def motor_command_callback(self, msg: MotorCommand):
-        self.semaphor = True
+        self.semaphore = True
         self._msg = msg
         self.get_logger().info("(" + str(msg.direction) + ", " + str(msg.turn) + ")")
         self.move(100, self._msg.direction, self._msg.turn)
-        self.semaphor = False
+        self.semaphore = False
 
     def _stop_callback(self):
-        if (self._msg.direction == 'no') and (self.semaphor == False):
+        if (self._msg.direction == 'no') and (self.semaphore == False):
             self.motorStop()
 
     def setup(self):  # Motor initialization
