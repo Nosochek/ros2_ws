@@ -23,12 +23,14 @@ class MotorDriver(Node):
 
     def __init__(self):
         super().__init__('motor_driver')
+        self._msg = MotorCommand()
         self.setup()
         self.subscription = self.create_subscription(
             MotorCommand, 'motor_cmd', self.motor_command_callback, 10)
     def motor_command_callback(self, msg: MotorCommand):
+        self._msg = msg
         self.get_logger().info("(" + str(msg.direction) + ", " + str(msg.turn) + ")")
-        self.move(100, msg.direction, msg.turn)
+        self.move(100, self._msg.direction, self._msg.turn)
 
 
     def setup(self):  # Motor initialization
@@ -130,6 +132,8 @@ class MotorDriver(Node):
                 self.motorStop()
         else:
             pass
+        
+        self._msg.direction = 'no'
 
     def destroy(self):
         self.motorStop()
