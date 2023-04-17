@@ -14,9 +14,9 @@ class MotorDriver(Node):
     Motor_B_Pin2 = 18
     Dir_forward = 0
     Dir_backward = 1
-    left_forward = 1
+    left_forward = 0
     left_backward = 1
-    right_forward = 1
+    right_forward = 0
     right_backward = 1
     pwn_A = 0
     pwm_B = 0
@@ -94,7 +94,6 @@ class MotorDriver(Node):
         # speed = 100
         self.get_logger().info("Move")
         if direction == 'forward':
-
             if turn == 'right':
                 self.get_logger().info("forward right")
                 self.motor_left(0, self.left_backward, int(speed * radius))
