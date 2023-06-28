@@ -1,5 +1,9 @@
 /build/
 /install/
 /log/
+src/build/
+src/install/
+src/log/
 src/.vscode/c_cpp_properties.json
 src/.vscode/settings.json
+src/build/motor_demo_msgs/cmake_args.last

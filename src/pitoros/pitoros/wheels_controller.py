@@ -23,7 +23,7 @@ class MotorDriver(Node):
     semaphore = False
 
     def __init__(self):
-        super().__init__('motor_driver')
+        super().__init__('wheels_motor_driver')
         self._msg = MotorCommand()
         self.setup()
         self.subscription = self.create_subscription(
